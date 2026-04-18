@@ -39,7 +39,7 @@ const Hero = () => {
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button 
-            onClick={() => navigate('/feed')}
+            onClick={() => navigate('/login')}
             className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-6 text-lg font-bold rounded-lg shadow-xl shadow-blue-600/20 transition-all hover:scale-105"
           >
             Нэвтрэх <ChevronRight className="ml-2" />
