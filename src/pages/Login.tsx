@@ -92,8 +92,9 @@ const Login = () => {
           <div className="mt-8 pt-6 border-t border-slate-800/50 flex flex-col items-center gap-4">
             <div className="flex items-center gap-2 text-emerald-500/80 bg-emerald-500/5 px-4 py-2 rounded-full border border-emerald-500/10">
               <ShieldCheck size={16} />
-              <span className="text-[10px] font-black uppercase tracking-tighter">Шифрлэгдсэн аюулгүй холболт</span>
+              <span className="text-[10px] font-black uppercase tracking-tighter">Дэмо горим</span>
             </div>
+            <p className="text-slate-500 text-xs text-center">Бүх и-мэйл, нууц үгийн хослол ашиглаж болно</p>
           </div>
         </div>
       </div>
