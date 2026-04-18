@@ -2,33 +2,22 @@
 
 import React from 'react';
 import Navbar from '@/components/Navbar';
-import Hero from '@/components/Hero';
-import Features from '@/components/Features';
-import Goals from '@/components/Goals';
-import SecuritySection from '@/components/SecuritySection';
+import Hero from '@/components/landing/Hero';
+import Features from '@/components/landing/Features';
+import Goals from '@/components/landing/Goals';
+import SecuritySection from '@/components/landing/SecuritySection';
 import { MadeWithDyad } from '@/components/made-with-dyad';
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-blue-600 selection:text-white">
-      {/* Top Navigation */}
       <Navbar />
-      
-      {/* Main Content Sections */}
       <main>
-        {/* 1. Hero Section */}
         <Hero />
-
-        {/* 2. Core Features Section */}
         <Features />
-
-        {/* 3. Mission & Goals Section */}
         <Goals />
-
-        {/* 4. Security & Call to Action Section */}
         <SecuritySection />
-
-        {/* 5. Statistics/Why section can be added later if needed */}
+        
         <section className="py-20 px-4 bg-slate-50 border-t border-slate-100">
           <div className="max-w-7xl mx-auto text-center">
             <h3 className="text-3xl font-black text-slate-900 mb-12">📊 Яагаад энэ систем вэ?</h3>
@@ -51,7 +40,6 @@ const Index = () => {
         </section>
       </main>
 
-      {/* Footer / Bottom Info */}
       <footer className="py-12 bg-slate-900 border-t border-slate-800">
         <div className="max-w-7xl mx-auto px-4 flex flex-col items-center">
           <div className="flex items-center gap-2 mb-6">

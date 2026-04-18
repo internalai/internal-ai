@@ -2,11 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
-import Sidebar from '@/components/Sidebar';
-import RightSidebar from '@/components/RightSidebar';
-import Stories from '@/components/Stories';
-import CreatePost from '@/components/CreatePost';
-import PostCard from '@/components/PostCard';
+import Sidebar from '@/components/feed/Sidebar';
+import RightSidebar from '@/components/feed/RightSidebar';
+import Stories from '@/components/feed/Stories';
+import CreatePost from '@/components/feed/CreatePost';
+import PostCard from '@/components/feed/PostCard';
 import { getPosts, createPost } from '@/lib/api';
 import { toast } from 'sonner';
 
@@ -34,7 +34,6 @@ const Feed = () => {
     try {
       await createPost(content, imageUrl);
       toast.success("Мэдээлэл амжилттай нийтлэгдлээ");
-      // Refresh posts
       const data = await getPosts();
       setPosts(data || []);
     } catch (error) {
@@ -64,8 +63,8 @@ const Feed = () => {
                   <PostCard 
                     key={post.id || index} 
                     user={{
-                      name: post.full_name || "Алба хаагч",
-                      image: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop",
+                      name: post.profiles?.username || "Алба хаагч",
+                      image: post.profiles?.avatar_url || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop",
                       time: new Date(post.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
                     }}
                     content={post.content}
