@@ -5,7 +5,10 @@ const bcrypt = require('bcrypt');
 const sqlite3 = require('sqlite3').verbose();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000', // Allow requests from frontend
+  credentials: true
+}));
 app.use(express.json());
 
 // Database setup
@@ -95,6 +98,11 @@ app.post('/api/auth/login', async (req, res) => {
 app.post('/api/auth/register', async (req, res) => {
   const { email, password, full_name, rank } = req.body;
 
+  // Validate input
+  if (!email || !password || !full_name || !rank) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+
   // Check if user already exists
   db.get('SELECT * FROM users WHERE email = ?', [email], async (err, existingUser) => {
     if (err) {
@@ -158,6 +166,11 @@ app.post('/api/posts', authenticateToken, (req, res) => {
       res.json({ id: this.lastID, content, image_url, user_id });
     }
   );
+});
+
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'OK', message: 'Server is running' });
 });
 
 // Start server

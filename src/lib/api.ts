@@ -16,10 +16,13 @@ export const signIn = async (email: string, password: string) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password })
   });
-  const data = await response.json();
+  
   if (!response.ok) {
-    throw new Error(data.error || 'Login failed');
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || 'Login failed');
   }
+  
+  const data = await response.json();
   localStorage.setItem('token', data.token);
   return data;
 };
@@ -30,10 +33,13 @@ export const signUp = async (email: string, password: string, full_name: string,
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password, full_name, rank })
   });
-  const data = await response.json();
+  
   if (!response.ok) {
-    throw new Error(data.error || 'Registration failed');
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || 'Registration failed');
   }
+  
+  const data = await response.json();
   localStorage.setItem('token', data.token);
   return data;
 };
@@ -43,11 +49,13 @@ export const getPosts = async () => {
   const response = await fetch(`${API_URL}/posts`, {
     headers: getHeaders()
   });
-  const data = await response.json();
+  
   if (!response.ok) {
-    throw new Error(data.error || 'Failed to fetch posts');
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || 'Failed to fetch posts');
   }
-  return data;
+  
+  return await response.json();
 };
 
 export const createPost = async (content: string, imageUrl?: string) => {
@@ -56,9 +64,11 @@ export const createPost = async (content: string, imageUrl?: string) => {
     headers: getHeaders(),
     body: JSON.stringify({ content, image_url: imageUrl })
   });
-  const data = await response.json();
+  
   if (!response.ok) {
-    throw new Error(data.error || 'Failed to create post');
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || 'Failed to create post');
   }
-  return data;
+  
+  return await response.json();
 };

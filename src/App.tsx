@@ -4,6 +4,7 @@ import Index from './pages/Index';
 import Feed from './pages/Feed';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import TestBackend from './pages/TestBackend';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/test-backend" element={<TestBackend />} />
       </Routes>
     </Router>
   );

@@ -20,17 +20,32 @@ const Register = () => {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validation
+    if (!email || !password || !fullName || !rank) {
+      toast.error("All fields are required");
+      return;
+    }
+    
     if (password !== confirmPassword) {
       toast.error("Passwords do not match");
       return;
     }
+    
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters long");
+      return;
+    }
+    
     setIsLoading(true);
+    
     try {
       await signUp(email, password, fullName, rank);
       toast.success("Registration successful! Please check your email for verification.");
       navigate("/login");
     } catch (error: any) {
-      toast.error(error.message || "Registration failed");
+      console.error("Registration error:", error);
+      toast.error(error.message || "Registration failed. Please try again.");
     } finally {
       setIsLoading(false);
     }
