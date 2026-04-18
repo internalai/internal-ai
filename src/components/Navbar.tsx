@@ -1,65 +1,67 @@
 "use client";
 
 import React from 'react';
-import { Search, Home, Users, MonitorPlay, ShoppingCart, Bell, MessageCircle, Menu, User } from 'lucide-react';
+import { Search, Home, Users, Bell, MessageSquare, ShieldCheck, Menu, User, Cpu } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
   return (
-    <nav className="sticky top-0 z-50 bg-white border-b shadow-sm px-4 h-14 flex items-center justify-between">
-      <div className="flex items-center gap-2 flex-1">
-        <div className="bg-blue-600 p-1.5 rounded-full">
-          <span className="text-white font-bold text-xl leading-none">f</span>
+    <nav className="sticky top-0 z-50 bg-slate-900 border-b border-slate-800 shadow-xl px-4 h-16 flex items-center justify-between">
+      <div className="flex items-center gap-3 flex-1">
+        <div className="bg-blue-600 p-2 rounded-lg shadow-lg shadow-blue-500/20">
+          <Cpu className="text-white" size={24} />
         </div>
-        <div className="relative hidden md:block max-w-[240px] w-full">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+        <div className="hidden md:block">
+          <h1 className="text-white font-bold text-lg leading-none tracking-tight">MILITARY AI</h1>
+          <p className="text-blue-400 text-[10px] font-medium uppercase tracking-widest mt-1">Нэгдсэн Систем</p>
+        </div>
+        <div className="relative hidden lg:block max-w-[300px] w-full ml-4">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
           <Input 
-            placeholder="Search Facebook" 
-            className="pl-10 bg-gray-100 border-none rounded-full h-10 focus-visible:ring-1 focus-visible:ring-blue-500"
+            placeholder="Системээс хайх..." 
+            className="pl-10 bg-slate-800 border-none rounded-md h-10 text-white placeholder:text-slate-500 focus-visible:ring-1 focus-visible:ring-blue-500"
           />
         </div>
-        <Button variant="ghost" size="icon" className="md:hidden">
-          <Search size={20} />
+      </div>
+
+      <div className="hidden lg:flex items-center justify-center flex-1 h-full max-w-[500px] gap-1">
+        <Button variant="ghost" className="flex-1 h-full border-b-2 border-blue-500 rounded-none text-blue-400 bg-blue-500/5">
+          <Home size={22} className="mr-2" />
+          <span className="font-semibold">Нүүр</span>
+        </Button>
+        <Button variant="ghost" className="flex-1 h-full border-b-2 border-transparent rounded-none text-slate-400 hover:text-white hover:bg-slate-800 transition-all">
+          <MessageSquare size={22} className="mr-2" />
+          <span className="font-semibold">AI Туслах</span>
+        </Button>
+        <Button variant="ghost" className="flex-1 h-full border-b-2 border-transparent rounded-none text-slate-400 hover:text-white hover:bg-slate-800 transition-all">
+          <Users size={22} className="mr-2" />
+          <span className="font-semibold">Сүлжээ</span>
         </Button>
       </div>
 
-      <div className="hidden lg:flex items-center justify-center flex-1 h-full max-w-[600px]">
-        <Button variant="ghost" className="flex-1 h-full border-b-4 border-blue-600 rounded-none text-blue-600">
-          <Home size={28} />
-        </Button>
-        <Button variant="ghost" className="flex-1 h-full border-b-4 border-transparent rounded-none text-gray-500 hover:bg-gray-100">
-          <Users size={28} />
-        </Button>
-        <Button variant="ghost" className="flex-1 h-full border-b-4 border-transparent rounded-none text-gray-500 hover:bg-gray-100">
-          <MonitorPlay size={28} />
-        </Button>
-        <Button variant="ghost" className="flex-1 h-full border-b-4 border-transparent rounded-none text-gray-500 hover:bg-gray-100">
-          <ShoppingCart size={28} />
-        </Button>
-        <Button variant="ghost" className="flex-1 h-full border-b-4 border-transparent rounded-none text-gray-500 hover:bg-gray-100">
-          <Users size={28} />
-        </Button>
-      </div>
-
-      <div className="flex items-center justify-end gap-2 flex-1">
-        <div className="hidden xl:flex items-center bg-gray-100 rounded-full pr-3 pl-1 py-1 cursor-pointer hover:bg-gray-200 transition-colors">
-          <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center mr-2">
-            <User size={20} className="text-gray-600" />
+      <div className="flex items-center justify-end gap-3 flex-1">
+        <div className="hidden xl:flex items-center bg-slate-800 rounded-md px-3 py-1.5 border border-slate-700">
+          <div className="w-8 h-8 rounded bg-blue-600 flex items-center justify-center mr-3 shadow-inner">
+            <User size={18} className="text-white" />
           </div>
-          <span className="font-semibold text-sm">Alex</span>
+          <div className="flex flex-col">
+            <span className="text-white font-bold text-xs">А. Бат-Эрдэнэ</span>
+            <span className="text-blue-400 text-[10px] font-bold">Ахмад</span>
+          </div>
         </div>
-        <Button variant="ghost" size="icon" className="bg-gray-100 rounded-full hover:bg-gray-200">
-          <Menu size={20} />
-        </Button>
-        <Button variant="ghost" size="icon" className="bg-gray-100 rounded-full hover:bg-gray-200">
-          <MessageCircle size={20} />
-        </Button>
-        <Button variant="ghost" size="icon" className="bg-gray-100 rounded-full hover:bg-gray-200">
-          <Bell size={20} />
-        </Button>
-        <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center cursor-pointer overflow-hidden border">
-           <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop" alt="Profile" className="w-full h-full object-cover" />
+        <div className="flex gap-1">
+          <Button variant="ghost" size="icon" className="text-slate-400 hover:text-white hover:bg-slate-800 relative">
+            <MessageSquare size={20} />
+            <span className="absolute top-2 right-2 w-2 h-2 bg-blue-500 rounded-full"></span>
+          </Button>
+          <Button variant="ghost" size="icon" className="text-slate-400 hover:text-white hover:bg-slate-800 relative">
+            <Bell size={20} />
+            <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+          </Button>
+          <Button variant="ghost" size="icon" className="text-slate-400 hover:text-white hover:bg-slate-800">
+            <ShieldCheck size={20} className="text-green-500" />
+          </Button>
         </div>
       </div>
     </nav>
