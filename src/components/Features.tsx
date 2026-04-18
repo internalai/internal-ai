@@ -1,8 +1,8 @@
 "use client";
 
 import React from 'react';
-import { MessageSquare, Layout, ShieldCheck, Settings, FileText, Calendar, Users, BarChart3 } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { MessageSquare, Layout, ShieldCheck, Settings, Users } from 'lucide-react';
+import { toast } from 'sonner';
 
 const FeatureCard = ({ icon: Icon, title, desc, items }: { icon: any, title: string, desc: string, items: string[] }) => (
   <div 

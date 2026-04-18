@@ -1,11 +1,11 @@
 "use client";
 
 import React from 'react';
-import { Search, Home, Users, Bell, MessageSquare, ShieldCheck, Menu, User, Cpu } from 'lucide-react';
+import { Search, Home, Users, Bell, MessageSquare, ShieldCheck, User, Cpu } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useNavigate, useLocation } from 'react-router-dom';
-import toast from 'react-hot-toast';
+import { toast } from 'sonner';
 
 const Navbar = () => {
   const navigate = useNavigate();
