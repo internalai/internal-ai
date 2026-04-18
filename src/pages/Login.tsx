@@ -42,7 +42,7 @@ const Login = () => {
             <div className="bg-blue-600 p-3 rounded-2xl shadow-lg shadow-blue-500/20 mb-4">
               <Cpu className="text-white" size={32} />
             </div>
-            <h1 className="text-2xl font-black text-white tracking-tight">MILITARY AI SYSTEM</h1>
+            <h1 className="text-2xl font-black text-white tracking-tight">INTERNAL AI SYSTEM</h1>
             <p className="text-slate-500 text-sm font-medium uppercase tracking-wider mt-1">Нэвтрэх хэсэг</p>
           </div>
 

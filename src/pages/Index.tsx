@@ -56,11 +56,11 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 flex flex-col items-center">
           <div className="flex items-center gap-2 mb-6">
             <div className="bg-blue-600 p-1 rounded-md">
-              <span className="text-white font-black text-xs uppercase">Mil AI</span>
+              <span className="text-white font-black text-xs uppercase">Internal AI</span>
             </div>
             <span className="text-slate-400 font-bold text-sm tracking-widest">UNIT 001 - CENTRAL COMMAND</span>
           </div>
-          <p className="text-slate-600 text-xs mb-8">© 2024 Цэргийн Нэгдсэн AI Платформ. Бүх эрх хуулиар хамгаалагдсан.</p>
+          <p className="text-slate-600 text-xs mb-8">© 2024 Internal AI Platform. Бүх эрх хуулиар хамгаалагдсан.</p>
           <MadeWithDyad />
         </div>
       </footer>

@@ -25,7 +25,7 @@ const Hero = () => {
       <div className="max-w-6xl mx-auto text-center relative z-10">
         <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 px-4 py-1.5 rounded-full mb-8">
           <Lock size={14} className="text-blue-400" />
-          <span className="text-blue-400 text-xs font-bold uppercase tracking-widest">Цэргийн зориулалттай AI систем</span>
+          <span className="text-blue-400 text-xs font-bold uppercase tracking-widest">Internal AI System</span>
         </div>
         
         <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">

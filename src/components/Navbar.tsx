@@ -25,7 +25,7 @@ const Navbar = () => {
           <Cpu className="text-white" size={24} />
         </div>
         <div className="hidden md:block cursor-pointer" onClick={() => navigate('/')}>
-          <h1 className="text-white font-bold text-lg leading-none tracking-tight">MILITARY AI</h1>
+          <h1 className="text-white font-bold text-lg leading-none tracking-tight">INTERNAL AI</h1>
           <p className="text-blue-400 text-[10px] font-medium uppercase tracking-widest mt-1">Нэгдсэн Систем</p>
         </div>
         <div className="relative hidden lg:block max-w-[300px] w-full ml-4">
