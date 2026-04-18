@@ -4,9 +4,19 @@ import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ChevronRight, Shield, Zap, Lock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const Hero = () => {
   const navigate = useNavigate();
+
+  const scrollToFeatures = () => {
+    const element = document.getElementById('features-section');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      toast('Системтэй танилцаж эхэллээ...');
+    }
+  };
 
   return (
     <section className="relative py-20 px-4 overflow-hidden bg-slate-900 border-b border-slate-800">
@@ -34,27 +44,31 @@ const Hero = () => {
           >
             Нэвтрэх <ChevronRight className="ml-2" />
           </Button>
-          <Button variant="outline" className="border-slate-700 text-slate-300 hover:bg-slate-800 px-10 py-6 text-lg font-bold rounded-lg transition-all">
+          <Button 
+            variant="outline" 
+            onClick={scrollToFeatures}
+            className="border-slate-700 text-slate-300 hover:bg-slate-800 px-10 py-6 text-lg font-bold rounded-lg transition-all"
+          >
             Системтэй танилцах
           </Button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
-          <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 text-left">
+          <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 text-left cursor-default hover:border-blue-500/50 transition-colors">
             <div className="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center mb-4 border border-blue-600/30">
               <Zap className="text-blue-400" />
             </div>
             <h3 className="text-white font-bold mb-2">Шуурхай шийдэл</h3>
             <p className="text-slate-500 text-sm">Хиймэл оюун ухаан нь мэдээллийг хэдхэн секундэд боловсруулж, оновчтой шийдвэр гаргахад тусална.</p>
           </div>
-          <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 text-left">
+          <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 text-left cursor-default hover:border-indigo-500/50 transition-colors">
             <div className="w-12 h-12 bg-indigo-600/20 rounded-lg flex items-center justify-center mb-4 border border-indigo-600/30">
               <Shield className="text-indigo-400" />
             </div>
             <h3 className="text-white font-bold mb-2">Өндөр нууцлал</h3>
             <p className="text-slate-500 text-sm">Мэдээллийн аюулгүй байдлын цэргийн түвшний стандартыг бүрэн хангасан аюулгүй бүтэц.</p>
           </div>
-          <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 text-left">
+          <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 text-left cursor-default hover:border-emerald-500/50 transition-colors">
             <div className="w-12 h-12 bg-emerald-600/20 rounded-lg flex items-center justify-center mb-4 border border-emerald-600/30">
               <Lock className="text-emerald-400" />
             </div>

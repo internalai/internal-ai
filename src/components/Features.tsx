@@ -2,9 +2,13 @@
 
 import React from 'react';
 import { MessageSquare, Layout, ShieldCheck, Settings, FileText, Calendar, Users, BarChart3 } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const FeatureCard = ({ icon: Icon, title, desc, items }: { icon: any, title: string, desc: string, items: string[] }) => (
-  <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-300 group">
+  <div 
+    className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-300 group cursor-pointer"
+    onClick={() => toast.info(`${title} хэсгийн дэлгэрэнгүй`)}
+  >
     <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors">
       <Icon className="text-blue-600 group-hover:text-white transition-colors" size={32} />
     </div>
@@ -23,7 +27,7 @@ const FeatureCard = ({ icon: Icon, title, desc, items }: { icon: any, title: str
 
 const Features = () => {
   return (
-    <section className="py-24 px-4 bg-slate-50">
+    <section id="features-section" className="py-24 px-4 bg-slate-50 scroll-mt-16">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-20">
           <h2 className="text-blue-600 font-black tracking-widest uppercase text-sm mb-4">Core Capabilities</h2>
