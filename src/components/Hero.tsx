@@ -14,7 +14,7 @@ const Hero = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     } else {
-      toast('Системтэй танилцаж эхэллээ...');
+      toast('System is loading...');
     }
   };
 
@@ -50,6 +50,13 @@ const Hero = () => {
             className="border-slate-700 text-slate-300 hover:bg-slate-800 px-10 py-6 text-lg font-bold rounded-lg transition-all"
           >
             Системтэй танилцах
+          </Button>
+          <Button 
+            variant="outline" 
+            onClick={() => navigate('/register')}
+            className="border-slate-700 text-slate-300 hover:bg-slate-800 px-10 py-6 text-lg font-bold rounded-lg transition-all"
+          >
+            Register
           </Button>
         </div>
 
