@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Search, Home, Users, MonitorPlay, ShoppingCart, UserGroup, Bell, MessageCircle, Menu, User } from 'lucide-react';
+import { Search, Home, Users, MonitorPlay, ShoppingCart, Bell, MessageCircle, Menu, User } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -38,7 +38,7 @@ const Navbar = () => {
           <ShoppingCart size={28} />
         </Button>
         <Button variant="ghost" className="flex-1 h-full border-b-4 border-transparent rounded-none text-gray-500 hover:bg-gray-100">
-          <UserGroup size={28} />
+          <Users size={28} />
         </Button>
       </div>
 
