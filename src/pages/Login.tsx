@@ -7,26 +7,31 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Cpu, Lock, ShieldCheck, ArrowRight } from 'lucide-react';
 import { toast } from 'sonner';
+import { signIn } from '@/lib/api';
 
 const Login = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate login delay
-    setTimeout(() => {
+    try {
+      await signIn(email, password);
       toast.success("Системд амжилттай нэвтэрлээ. Тавтай морил!");
       navigate('/feed');
+    } catch (error: any) {
+      toast.error("Нэвтрэхэд алдаа гарлаа: " + (error.message || "Мэдээллээ шалгана уу"));
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   return (
     <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Background decoration */}
       <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(37,99,235,0.05),transparent)] pointer-events-none" />
       <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
       <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl" />
@@ -43,15 +48,16 @@ const Login = () => {
 
           <form onSubmit={handleLogin} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="id" className="text-slate-400 text-xs font-bold uppercase tracking-wider ml-1">Албан тушаалын ID / И-мэйл</Label>
-              <div className="relative">
-                <Input 
-                  id="id"
-                  required
-                  placeholder="ID: 8829-2345"
-                  className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-600 h-12 rounded-xl focus:ring-blue-500"
-                />
-              </div>
+              <Label htmlFor="email" className="text-slate-400 text-xs font-bold uppercase tracking-wider ml-1">И-мэйл хаяг</Label>
+              <Input 
+                id="email"
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="bat.erdene@mil.mn"
+                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-600 h-12 rounded-xl focus:ring-blue-500"
+              />
             </div>
 
             <div className="space-y-2">
@@ -61,19 +67,13 @@ const Login = () => {
                   id="pass"
                   type="password"
                   required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-600 h-12 rounded-xl focus:ring-blue-500"
                 />
                 <Lock className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" size={18} />
               </div>
-            </div>
-
-            <div className="flex items-center justify-between text-xs font-bold">
-              <label className="flex items-center text-slate-500 cursor-pointer">
-                <input type="checkbox" className="mr-2 rounded border-slate-700 bg-slate-800" />
-                Намайг сана
-              </label>
-              <button type="button" className="text-blue-500 hover:text-blue-400 transition-colors">Нууц үг мартсан?</button>
             </div>
 
             <Button 
@@ -83,7 +83,7 @@ const Login = () => {
             >
               {isLoading ? "Шалгаж байна..." : (
                 <span className="flex items-center gap-2">
-                  Нэвтрэх <ArrowRight size={20} />
+                  Системд нэвтрэх <ArrowRight size={20} />
                 </span>
               )}
             </Button>
@@ -96,10 +96,6 @@ const Login = () => {
             </div>
           </div>
         </div>
-        
-        <p className="text-center mt-6 text-slate-600 text-xs font-medium">
-          © 2024 Цэргийн AI Систем. Бүх эрх хуулиар хамгаалагдсан.
-        </p>
       </div>
     </div>
   );

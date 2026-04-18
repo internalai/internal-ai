@@ -1,37 +1,34 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Sidebar from '@/components/Sidebar';
 import RightSidebar from '@/components/RightSidebar';
 import Stories from '@/components/Stories';
 import CreatePost from '@/components/CreatePost';
 import PostCard from '@/components/PostCard';
+import { getPosts } from '@/lib/api';
+import { toast } from 'sonner';
 
 const Feed = () => {
-  const feedPosts = [
-    {
-      user: {
-        name: "А. Бат-Эрдэнэ",
-        image: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop",
-        time: "10мин"
-      },
-      content: "Өнөөдрийн сургуулилалт амжилттай боллоо. AI системийн тусламжтайгаар тактик боловсруулах хугацаа 40%-иар буурсан байна. 🎖️ #MilitaryAI #Efficiency",
-      image: "https://images.unsplash.com/photo-1590483734724-383b85ad0590?w=800&q=80",
-      likes: 42,
-      comments: 5
-    },
-    {
-      user: {
-        name: "Д. Сүхбаатар",
-        image: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&h=100&fit=crop",
-        time: "2ц"
-      },
-      content: "Шинэ дүрэм журмын сан баяжлаа. AI туслахаас асуултаа асууж, шуурхай хариулт аваарай.",
-      likes: 28,
-      comments: 2
-    }
-  ];
+  const [posts, setPosts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const data = await getPosts();
+        setPosts(data || []);
+      } catch (error) {
+        toast.error("Мэдээлэл татахад алдаа гарлаа");
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans">
@@ -45,11 +42,33 @@ const Feed = () => {
             <Stories />
             <CreatePost />
             
-            <div className="space-y-4 pb-10">
-              {feedPosts.map((post, index) => (
-                <PostCard key={index} {...post} />
-              ))}
-            </div>
+            {loading ? (
+              <div className="flex justify-center py-10">
+                <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600"></div>
+              </div>
+            ) : (
+              <div className="space-y-4 pb-10">
+                {posts.map((post, index) => (
+                  <PostCard 
+                    key={post.id || index} 
+                    user={{
+                      name: post.user_name || "Алба хаагч",
+                      image: post.user_avatar || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop",
+                      time: new Date(post.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                    }}
+                    content={post.content}
+                    image={post.image_url}
+                    likes={post.likes_count || 0}
+                    comments={0}
+                  />
+                ))}
+                {posts.length === 0 && (
+                  <div className="text-center py-20 bg-white rounded-xl border border-dashed border-slate-300">
+                    <p className="text-slate-500 font-medium">Одоогоор нийтлэгдсэн мэдээлэл байхгүй байна.</p>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </main>
 
