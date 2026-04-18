@@ -7,13 +7,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Cpu, Lock, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
+import { signUp } from "@/lib/api";
 
 const Register = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [rank, setRank] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleRegister = async (e: React.FormEvent) => {
@@ -24,12 +26,7 @@ const Register = () => {
     }
     setIsLoading(true);
     try {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: { email: { send: false } },
-      });
-      if (error) throw error;
+      await signUp(email, password, fullName, rank);
       toast.success("Registration successful! Please check your email for verification.");
       navigate("/login");
     } catch (error: any) {
@@ -67,6 +64,30 @@ const Register = () => {
               />
             </div>
             <div className="space-y-2">
+              <Label htmlFor="fullName" className="text-slate-400 text-xs font-bold uppercase tracking-wider ml-1">Full Name</Label>
+              <Input
+                id="fullName"
+                type="text"
+                required
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                placeholder="John Doe"
+                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-600 h-12 rounded-xl focus:ring-blue-500"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="rank" className="text-slate-400 text-xs font-bold uppercase tracking-wider ml-1">Rank</Label>
+              <Input
+                id="rank"
+                type="text"
+                required
+                value={rank}
+                onChange={(e) => setRank(e.target.value)}
+                placeholder="Captain"
+                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-600 h-12 rounded-xl focus:ring-blue-500"
+              />
+            </div>
+            <div className="space-y-2">
               <Label htmlFor="pass" className="text-slate-400 text-xs font-bold uppercase tracking-wider ml-1">Password</Label>
               <div className="relative">
                 <Input
@@ -87,7 +108,8 @@ const Register = () => {
                 <Input
                   id="confirm"
                   type="password"
-                  required                  value={confirmPassword}
+                  required
+                  value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="••••••••"
                   className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-600 h-12 rounded-xl focus:ring-blue-500"

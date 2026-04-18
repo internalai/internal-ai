@@ -43,7 +43,7 @@ const Login = () => {
               <Cpu className="text-white" size={32} />
             </div>
             <h1 className="text-2xl font-black text-white tracking-tight">MILITARY AI SYSTEM</h1>
-            <p className="text-slate-500 text-sm font-medium uppercase tracking-widest mt-1">Нэвтрэх хэсэг</p>
+            <p className="text-slate-500 text-sm font-medium uppercase tracking-wider mt-1">Нэвтрэх хэсэг</p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-6">

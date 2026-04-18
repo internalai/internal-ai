@@ -1,10 +1,26 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Video, Image as ImageIcon, Smile } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
-const CreatePost = () => {
+interface CreatePostProps {
+  onPostCreate: (content: string, imageUrl?: string) => void;
+}
+
+const CreatePost = ({ onPostCreate }: CreatePostProps) => {
+  const [content, setContent] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = () => {
+    if (!content.trim()) return;
+    
+    setIsSubmitting(true);
+    onPostCreate(content);
+    setContent('');
+    setIsSubmitting(false);
+  };
+
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-4">
       <div className="flex items-center gap-2 mb-4">
@@ -30,6 +46,16 @@ const CreatePost = () => {
         <Button variant="ghost" className="flex-1 gap-2 text-gray-500 font-semibold h-10">
           <Smile className="text-yellow-500" size={24} />
           <span className="hidden sm:inline">Feeling/activity</span>
+        </Button>
+      </div>
+      
+      <div className="mt-4 flex justify-end">
+        <Button 
+          onClick={handleSubmit}
+          disabled={!content.trim() || isSubmitting}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg"
+        >
+          {isSubmitting ? "Posting..." : "Post"}
         </Button>
       </div>
     </div>

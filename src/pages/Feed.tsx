@@ -7,7 +7,7 @@ import RightSidebar from '@/components/RightSidebar';
 import Stories from '@/components/Stories';
 import CreatePost from '@/components/CreatePost';
 import PostCard from '@/components/PostCard';
-import { getPosts } from '@/lib/api';
+import { getPosts, createPost } from '@/lib/api';
 import { toast } from 'sonner';
 
 const Feed = () => {
@@ -30,6 +30,18 @@ const Feed = () => {
     fetchPosts();
   }, []);
 
+  const handleCreatePost = async (content: string, imageUrl?: string) => {
+    try {
+      await createPost(content, imageUrl);
+      toast.success("Мэдээлэл амжилттай нийтлэгдлээ");
+      // Refresh posts
+      const data = await getPosts();
+      setPosts(data || []);
+    } catch (error) {
+      toast.error("Мэдээлэл нийтлэхэд алдаа гарлаа");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 font-sans">
       <Navbar />
@@ -40,7 +52,7 @@ const Feed = () => {
         <main className="flex-1 flex justify-center py-6 px-4 md:px-8">
           <div className="w-full max-w-[680px]">
             <Stories />
-            <CreatePost />
+            <CreatePost onPostCreate={handleCreatePost} />
             
             {loading ? (
               <div className="flex justify-center py-10">
@@ -52,13 +64,13 @@ const Feed = () => {
                   <PostCard 
                     key={post.id || index} 
                     user={{
-                      name: post.user_name || "Алба хаагч",
-                      image: post.user_avatar || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop",
+                      name: post.full_name || "Алба хаагч",
+                      image: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop",
                       time: new Date(post.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
                     }}
                     content={post.content}
                     image={post.image_url}
-                    likes={post.likes_count || 0}
+                    likes={0}
                     comments={0}
                   />
                 ))}
