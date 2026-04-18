@@ -3,8 +3,11 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ChevronRight, Shield, Zap, Lock } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="relative py-20 px-4 overflow-hidden bg-slate-900 border-b border-slate-800">
       <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(37,99,235,0.1),transparent)] pointer-events-none" />
@@ -25,7 +28,10 @@ const Hero = () => {
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-6 text-lg font-bold rounded-lg shadow-xl shadow-blue-600/20 transition-all hover:scale-105">
+          <Button 
+            onClick={() => navigate('/feed')}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-6 text-lg font-bold rounded-lg shadow-xl shadow-blue-600/20 transition-all hover:scale-105"
+          >
             Нэвтрэх <ChevronRight className="ml-2" />
           </Button>
           <Button variant="outline" className="border-slate-700 text-slate-300 hover:bg-slate-800 px-10 py-6 text-lg font-bold rounded-lg transition-all">
