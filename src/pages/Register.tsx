@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Cpu, Lock, ArrowRight } from "lucide-react";
+import { Cpu, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 import { signUp } from "@/lib/api";
 
@@ -13,147 +13,60 @@ const Register = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [rank, setRank] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Validation
-    if (!email || !password || !fullName || !rank) {
-      toast.error("All fields are required");
-      return;
-    }
-    
-    if (password !== confirmPassword) {
-      toast.error("Passwords do not match");
-      return;
-    }
-    
-    if (password.length < 6) {
-      toast.error("Password must be at least 6 characters long");
-      return;
-    }
-    
     setIsLoading(true);
     
     try {
       await signUp(email, password, fullName, rank);
-      toast.success("Registration successful! Please check your email for verification.");
+      toast.success("Бүртгэл амжилттай! И-мэйлээ шалгана уу.");
       navigate("/login");
     } catch (error: any) {
-      console.error("Registration error:", error);
-      toast.error(error.message || "Registration failed. Please try again.");
+      toast.error(error.message || "Бүртгүүлэхэд алдаа гарлаа");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(37,99,235,0.05),transparent)] pointer-events-none" />
-      <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
-      <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl" />
-      <div className="w-full max-w-md relative z-10">
-        <div className="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-3xl p-8 shadow-2xl">
-          <div className="flex flex-col items-center mb-8">
-            <div className="bg-blue-600 p-3 rounded-2xl shadow-lg shadow-blue-500/20 mb-4">
-              <Cpu className="text-white" size={32} />
-            </div>
-            <h1 className="text-2xl font-black text-white tracking-tight">INTERNAL AI SYSTEM</h1>
-            <p className="text-slate-500 text-sm font-medium uppercase tracking-wider mt-1">Create Account</p>
+    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
+      <div className="w-full max-w-md bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-3xl p-8 shadow-2xl">
+        <div className="flex flex-col items-center mb-8">
+          <div className="bg-blue-600 p-3 rounded-2xl mb-4">
+            <Cpu className="text-white" size={32} />
           </div>
-          <form onSubmit={handleRegister} className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-slate-400 text-xs font-bold uppercase tracking-wider ml-1">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-600 h-12 rounded-xl focus:ring-blue-500"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="fullName" className="text-slate-400 text-xs font-bold uppercase tracking-wider ml-1">Full Name</Label>
-              <Input
-                id="fullName"
-                type="text"
-                required
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                placeholder="John Doe"
-                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-600 h-12 rounded-xl focus:ring-blue-500"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="rank" className="text-slate-400 text-xs font-bold uppercase tracking-wider ml-1">Rank</Label>
-              <Input
-                id="rank"
-                type="text"
-                required
-                value={rank}
-                onChange={(e) => setRank(e.target.value)}
-                placeholder="Captain"
-                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-600 h-12 rounded-xl focus:ring-blue-500"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="pass" className="text-slate-400 text-xs font-bold uppercase tracking-wider ml-1">Password</Label>
-              <div className="relative">
-                <Input
-                  id="pass"
-                  type="password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-600 h-12 rounded-xl focus:ring-blue-500"
-                />
-                <Lock className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" size={18} />
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="confirm" className="text-slate-400 text-xs font-bold uppercase tracking-wider ml-1">Confirm Password</Label>
-              <div className="relative">
-                <Input
-                  id="confirm"
-                  type="password"
-                  required
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-600 h-12 rounded-xl focus:ring-blue-500"
-                />
-                <Lock className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" size={18} />
-              </div>
-            </div>
-            <Button
-              type="submit"
-              disabled={isLoading}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white h-12 rounded-xl font-bold text-lg shadow-lg shadow-blue-600/20 transition-all active:scale-95"
-            >
-              {isLoading ? "Creating..." : (
-                <span className="flex items-center gap-2">
-                  Register <ArrowRight size={20} />
-                </span>
-              )}
-            </Button>
-          </form>
-          <div className="mt-8 pt-6 border-t border-slate-800/50 flex flex-col items-center gap-4">
-            <div className="flex items-center gap-2 text-emerald-500/80 bg-emerald-500/5 px-4 py-2 rounded-full border border-emerald-500/10">
-              <Lock size={16} />
-              <span className="text-[10px] font-black uppercase tracking-tighter">Already have an account?</span>
-            </div>
-            <Button variant="ghost" className="w-full text-slate-400 hover:text-white hover:bg-slate-800 h-14 font-bold">
-              Log In
-            </Button>
-          </div>
+          <h1 className="text-2xl font-black text-white">Бүртгүүлэх</h1>
         </div>
+
+        <form onSubmit={handleRegister} className="space-y-4">
+          <div className="space-y-1">
+            <Label className="text-slate-400">Email</Label>
+            <Input value={email} onChange={(e) => setEmail(e.target.value)} className="bg-slate-800 border-slate-700 text-white" required />
+          </div>
+          <div className="space-y-1">
+            <Label className="text-slate-400">Full Name</Label>
+            <Input value={fullName} onChange={(e) => setFullName(e.target.value)} className="bg-slate-800 border-slate-700 text-white" required />
+          </div>
+          <div className="space-y-1">
+            <Label className="text-slate-400">Rank (Цэргийн цол)</Label>
+            <Input value={rank} onChange={(e) => setRank(e.target.value)} className="bg-slate-800 border-slate-700 text-white" required />
+          </div>
+          <div className="space-y-1">
+            <Label className="text-slate-400">Password</Label>
+            <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="bg-slate-800 border-slate-700 text-white" required />
+          </div>
+          <Button disabled={isLoading} className="w-full bg-blue-600 mt-4">
+            {isLoading ? "Бүртгэж байна..." : "Бүртгүүлэх"}
+          </Button>
+        </form>
+        
+        <p className="mt-6 text-center text-slate-500 text-sm">
+          Аль хэдийн бүртгэлтэй юу? <button onClick={() => navigate('/login')} className="text-blue-400 font-bold hover:underline">Нэвтрэх</button>
+        </p>
       </div>
     </div>
   );
